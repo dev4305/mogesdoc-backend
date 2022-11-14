@@ -1,0 +1,19 @@
+server:
+  address: 0.0.0.0
+  port: 7070
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    password: ${MARIADB_PASSWORD:desarrollo}
+    url: jdbc:mariadb://${MARIADB_HOST:localhost}:${MARIADB_PORT:6060}/MOGESDOC
+    username: ${MARIADB_USER:root}
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy:  org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+springdoc:
+  swagger-ui:
+    path: /mogesdoc/api-user-doc.html
