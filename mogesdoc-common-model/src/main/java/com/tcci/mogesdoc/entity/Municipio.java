@@ -4,10 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +28,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "MUNICIPIO")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Municipio implements Serializable{
 
 	/**
@@ -43,7 +50,11 @@ public class Municipio implements Serializable{
 	@Column(name = "ESTADO")
 	private String estado;
 	
-	@Column(name = "DEPARTAMENTO")
-	private Integer departamento;
+	/*@Column(name = "DEPARTAMENTO")
+	private Integer departamento;*/
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "DEPARTAMENTO")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Departamento departamento;
 }

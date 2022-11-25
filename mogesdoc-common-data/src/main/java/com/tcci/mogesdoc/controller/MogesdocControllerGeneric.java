@@ -29,7 +29,7 @@ public class MogesdocControllerGeneric <E, S extends MogesdocSrvGeneric<E>>{
 		}
 	}
 	
-	@GetMapping("/id")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getById(@PathVariable("id") Integer id){
 		Optional<?> element = service.findById(id);
 		if(element.isPresent()) {

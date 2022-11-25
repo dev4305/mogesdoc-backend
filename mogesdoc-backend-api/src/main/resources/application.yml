@@ -6,13 +6,18 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     password: ${MARIADB_PASSWORD:desarrollo}
-    url: jdbc:mariadb://${MARIADB_HOST:localhost}:${MARIADB_PORT:6060}/MOGESDOC
+    #url: jdbc:mariadb://${MARIADB_HOST:localhost}:${MARIADB_PORT:6060}/MOGESDOC
+    url: jdbc:mariadb://localhost:6060/MOGESDOC
     username: ${MARIADB_USER:root}
   jpa:
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
     hibernate:
       ddl-auto: none
       naming:
         physical-strategy:  org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
 
 springdoc:
   swagger-ui:

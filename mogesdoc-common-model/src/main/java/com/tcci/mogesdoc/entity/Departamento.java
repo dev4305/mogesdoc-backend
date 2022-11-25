@@ -1,13 +1,22 @@
 package com.tcci.mogesdoc.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +31,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "DEPARTAMENTO")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Departamento implements Serializable{
 
 	/**
@@ -43,7 +53,13 @@ public class Departamento implements Serializable{
 	@Column(name = "ESTADO")
 	private String estado;
 	
-	@Column(name = "PAIS")
-	private Integer pais;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "PAIS")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Pais pais;
+	
+	@OneToMany(mappedBy = "departamento")
+	@JsonIgnore
+	private List<Municipio> municipios;
 	
 }
